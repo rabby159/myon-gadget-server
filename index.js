@@ -26,12 +26,26 @@ async function run() {
     await client.connect();
 
     const productCollection = client.db('productDB').collection('amazon')
+    const categoriesCollection = client.db('productDB').collection('categories')
+    const brandNameCollection = client.db('productDB').collection('brandName')
 
     app.get('/product', async(req, res)=> {
       const cursor = productCollection.find();
       const result = await cursor.toArray();
       res.send(result)
     });
+
+    app.get('/categories', async(req, res) => {
+      const cursor = categoriesCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    });
+
+    app.get('/brandName', async(req, res) => {
+      const cursor = brandNameCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
 
     app.get('/product/:id', async(req, res)=> {
       const id = req.params.id;
